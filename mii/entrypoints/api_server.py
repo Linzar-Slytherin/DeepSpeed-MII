@@ -46,7 +46,7 @@ async def generate(request: CompletionRequest) -> Response:
         request.prompt = [request.prompt]
 
     # Set up the generation arguments
-    generate_args = {"ignore_eos": False, "do_sample": True, "return_full_text": False}
+    generate_args = {"ignore_eos": True, "do_sample": False, "return_full_text": False}
 
     # Set optional generation arguments
     if request.max_length is not None:
@@ -188,6 +188,7 @@ if __name__ == "__main__":
         load_balancer = args.load_balancer
     else:
         # Initialize the DeepSpeed-MII instance
+        print(args)
         mii.serve(args.model,
                   deployment_name=args.deployment_name,
                   tensor_parallel=args.tensor_parallel,
